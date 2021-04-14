@@ -5,6 +5,7 @@ import 'firebase/storage';
 var firebaseConfig = {
     apiKey: "AIzaSyDNShKtNgQYFYEsmHKbESu4K46sQKhDWQ4",
     authDomain: "react-demo-bde4c.firebaseapp.com",
+    databaseURL: "https://react-demo-bde4c-default-rtdb.firebaseio.com/",
     projectId: "react-demo-bde4c",
     storageBucket: "react-demo-bde4c.appspot.com",
     messagingSenderId: "224367413549",

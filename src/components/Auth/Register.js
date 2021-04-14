@@ -10,6 +10,7 @@ import {
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import firebase from "../../firebase";
+import md5 from 'md5';
 class Register extends React.Component {
   state = {
     username: "",
@@ -17,7 +18,8 @@ class Register extends React.Component {
     password: "",
     confirmPassword: "",
     errors: [],
-    loading: false
+    loading: false,
+    usersRef: firebase.database().ref('users')
   };
 
   isFormValid = () => {
@@ -62,13 +64,27 @@ class Register extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
     if (this.isFormValid()) { 
-      this.setState({errors: [], loading: true})
+      this.setState({errors: [], loading: true});
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.state.email, this.state.password)
         .then((createdUser) => {
           console.log(createdUser);
-          this.setState({loading: false});
+          createdUser.user.updateProfile({
+            displayName: this.state.username,
+            photoURL: `http://gravatar.com/avatar/${md5(createdUser.user.email)}?d=identicon`
+          })
+          .then(() => {
+            this.saveUser(createdUser).then(() => {
+              console.log('User saved');
+            });
+            this.setState({loading: false});
+          })
+          .catch((err) => {
+            console.log(err);
+            this.setState({errors: this.state.errors.concat(err), loading: false});
+          });
+          //
         })
         .catch((err) => {
           console.log(err);
@@ -76,6 +92,19 @@ class Register extends React.Component {
         });
     }
   };
+
+  saveUser = createdUser => {
+    return this.state.usersRef.child(createdUser.user.uid).set({
+      name: createdUser.user.displayName,
+      avatar: createdUser.user.photoURL
+    });
+  };
+  
+
+  handleInputError = (errors, inputName) => {
+    return errors.some(error => error.message.toLowerCase().includes(inputName)) ? 'error' : ''
+  };
+
   render() {
     const { username, email, password, confirmPassword, errors, loading } = this.state;
     return (
@@ -105,6 +134,7 @@ class Register extends React.Component {
                 placeholder="Email Address"
                 onChange={this.handleOnchange}
                 value={email}
+                className={this.handleInputError(errors, 'email')}
                 type="email"
               />
               <Form.Input
@@ -115,16 +145,18 @@ class Register extends React.Component {
                 placeholder="Password"
                 onChange={this.handleOnchange}
                 value={password}
+                className={this.handleInputError(errors, 'password')}
                 type="password"
               />
               <Form.Input
                 fluid
                 name="confirmPassword"
-                icon="lock"
+                icon="repeat"
                 iconPosition="left"
                 placeholder="Confirm Password"
                 onChange={this.handleOnchange}
                 value={confirmPassword}
+                className={this.handleInputError(errors, 'password')}
                 type="password"
               />
               <Button disabled={loading} className={loading ? 'loading' : ''} color="orange" fluid size="large">
