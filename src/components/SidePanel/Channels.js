@@ -20,7 +20,7 @@ class Channels extends React.Component {
         this.addListeners();
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         this.removeListeners();
     }
 
@@ -32,7 +32,7 @@ class Channels extends React.Component {
         })
     }
 
-    removeListeners= () =>{
+    removeListeners = () => {
         this.state.channelsRef.off();
     }
 
