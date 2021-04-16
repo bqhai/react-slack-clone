@@ -5,3 +5,6 @@ body,
     background: #eee;
     padding: 1em;
 }
+.add:hover{
+    cursor: pointer;
+}

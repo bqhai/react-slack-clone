@@ -15,7 +15,7 @@ class UserPanel extends React.Component {
             disabled: true
         },
         {
-            key: 'avartar',
+            key: 'avatar',
             text: <span>Change Avatar</span>
         },
         {
