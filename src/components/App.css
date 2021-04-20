@@ -13,6 +13,7 @@ body,
 .messages{
     height: 440px;
     overflow-y: scroll;
+    /* max-width: none !important; */
 }
 
 /* MessagesForm.js */
