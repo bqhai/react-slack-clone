@@ -84,10 +84,13 @@ class MessagesForm extends React.Component {
             uploadTask: this.state.storageRef.child(filepath).put(file, metadata)
         },
             () => {
-                this.state.uploadTask.on('state_changed', snap => {
-                    const percentUploaded = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
-                    this.setState({ percentUploaded });
-                },
+                this.state.uploadTask.on(
+                    'state_changed',
+                    snap => {
+                        const percentUploaded = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
+                        this.props.isProgressBarVisible(percentUploaded);
+                        this.setState({ percentUploaded });
+                    },
                     err => {
                         console.error(err);
                         this.setState({
@@ -108,8 +111,7 @@ class MessagesForm extends React.Component {
                                     uploadTask: 'null'
                                 })
                             })
-                    }
-                )
+                    })
             }
         )
     }
