@@ -13,7 +13,7 @@ body,
 .messages{
     height: 440px;
     overflow-y: scroll;
-    /* max-width: none !important; */
+    max-width: none !important;
 }
 
 /* MessagesForm.js */
@@ -30,4 +30,8 @@ body,
 .message__self{
     border-left: 2px solid orange;
     padding-left: 8px;
+}
+
+.message__image{
+    padding: 1em;
 }
