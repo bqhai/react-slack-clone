@@ -1,29 +1,35 @@
 html,
 body,
-.app{
+.app {
     height: 100vh;
     background: #eee;
     padding: 1em;
 }
-.add:hover{
+.add:hover {
     cursor: pointer;
 }
 
+/* SilePanel.js */
+.menu {
+    padding-bottom: 2em;
+}
+
+
 /* Messages.js */
-.messages{
+.messages {
     height: 62vh;
     overflow-y: scroll;
     max-width: none !important;
 }
 
-.messages__progress{
+.messages__progress {
     height: 58vh;
     overflow-y: scroll;
     max-width: none !important;
 }
 
 /* MessagesForm.js */
-.message__form{
+.message__form {
     position: fixed !important;
     bottom: 1em;
     margin-left: 320px !important;
@@ -33,16 +39,16 @@ body,
 }
 
 /* Message.js */
-.message__self{
+.message__self {
     border-left: 2px solid orange;
     padding-left: 8px;
 }
 
-.message__image{
+.message__image {
     padding: 1em;
 }
 
 /* ProgessBar.js */
-.progress__bar{
+.progress__bar {
     margin: 0.3em 0 0 0 !important;
 }
