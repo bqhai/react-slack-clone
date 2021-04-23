@@ -164,6 +164,7 @@ class MessagesForm extends React.Component {
                         content='Upload Media'
                         labelPosition='right'
                         icon='cloud upload'
+                        disabled={uploadState === 'uploading'}
                         onClick={this.openModal}
                     />
                 </Button.Group>
